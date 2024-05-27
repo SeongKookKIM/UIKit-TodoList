@@ -22,6 +22,7 @@ class CustomCell: UITableViewCell {
         return titleLabel
     }()
     
+    // John: 이 부분을 버튼이아니라 레이블로 구현한 이유가 따로 있나요? 버튼으로 구현하면 메인뷰에서 제어가 가능해서 더 편리할 것 같습니다.
     // isDone
     private let isDoneLabel: UILabel = {
         let isDoneLabel = UILabel()
@@ -52,7 +53,7 @@ class CustomCell: UITableViewCell {
     
 
 
-
+    // John: 얘는 왜 있는 건가요?
     let toggleSwitch = UISwitch()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -87,6 +88,7 @@ class CustomCell: UITableViewCell {
         contentView.addSubview(stackViewContainer)
         
         NSLayoutConstraint.activate([
+            // John: 스택뷰 사이즈가 너무 커서 constant를 10정도로 줄이고 날짜를 완료한 일 밑에다가 적어서 위아래 간격도 좁히면 조금 더 가시성이 좋아질 것 같습니다.
             stackViewContainer.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             stackViewContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             stackViewContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),

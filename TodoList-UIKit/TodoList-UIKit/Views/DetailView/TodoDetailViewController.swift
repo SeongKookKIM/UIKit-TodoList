@@ -18,6 +18,7 @@ class TodoDetailViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let contentView = UIView()
     
+    // John: TextField로 구현해서 수정할 수 있게 만들어줬으면 더 좋았을꺼 같아요.
     private let contentTitle: UILabel = {
         let contentTitle = UILabel()
         contentTitle.text = "할 일"
@@ -26,6 +27,7 @@ class TodoDetailViewController: UIViewController {
         return contentTitle
     }()
     
+    // John: TextView로 구현해서 수정할 수 있게 만들어줬으면 더 좋았을꺼 같아요.
     private let contentLabel: UILabel = {
         let contentLabel = UILabel()
         contentLabel.numberOfLines = 0
@@ -41,6 +43,7 @@ class TodoDetailViewController: UIViewController {
         return dateTitle
     }()
     
+    // John: UIDatePicker로 구현해서 수정할 수 있게 만들어줬으면 더 좋았을꺼 같아요.
     private let dateLabel: UILabel = {
         let dateLabel = UILabel()
         dateLabel.translatesAutoresizingMaskIntoConstraints = false

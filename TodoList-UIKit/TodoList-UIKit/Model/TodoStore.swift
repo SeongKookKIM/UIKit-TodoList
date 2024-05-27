@@ -61,6 +61,7 @@ class TodoStore {
         return todoList[at.row]
     }
     
+    // John: getList 함수는 어디에 쓰이는 건가요?
     func getList() -> [Todo] {
         let list = todoList
         return list
