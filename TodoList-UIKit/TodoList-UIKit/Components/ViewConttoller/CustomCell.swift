@@ -2,10 +2,57 @@ import UIKit
 
 class CustomCell: UITableViewCell {
     
-    let titleLabel = UILabel()
-    let contentLabel = UILabel()
-    let dateLabel = UILabel()
-    let isDoneLabel = UILabel()
+
+    // Container View
+    private let stackViewContainer: UIView = {
+        let stackViewContainer = UIView()
+        stackViewContainer.backgroundColor = .systemBrown
+        stackViewContainer.layer.cornerRadius = 10
+        stackViewContainer.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stackViewContainer
+    }()
+    
+    // title
+    private let titleLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.font = UIFont.systemFont(ofSize: 28, weight: .bold)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        return titleLabel
+    }()
+    
+    // isDone
+    private let isDoneLabel: UILabel = {
+        let isDoneLabel = UILabel()
+        isDoneLabel.translatesAutoresizingMaskIntoConstraints = false
+        return isDoneLabel
+    }()
+    
+    // content
+    private let contentLabel: UILabel = {
+        let contentLabel = UILabel()
+        contentLabel.font = UIFont.systemFont(ofSize: 16)
+        contentLabel.numberOfLines = 2
+        contentLabel.lineBreakMode = .byTruncatingTail
+        contentLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        return contentLabel
+    }()
+    
+    // date
+    private let dateLabel: UILabel = {
+        let dateLabel = UILabel()
+        dateLabel.font = UIFont.systemFont(ofSize: 15)
+        dateLabel.textColor = .white
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        return dateLabel
+    }()
+    
+
+
+
     let toggleSwitch = UISwitch()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -18,39 +65,18 @@ class CustomCell: UITableViewCell {
         setUp()
     }
     
+    // setUp 설정
     func setUp() {
-        
-        
-        
-        titleLabel.font = UIFont.systemFont(ofSize: 28, weight: .bold)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        isDoneLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let hStackView = UIStackView(arrangedSubviews: [titleLabel, isDoneLabel])
         hStackView.axis = .horizontal
         hStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        contentLabel.font = UIFont.systemFont(ofSize: 16)
-        contentLabel.numberOfLines = 2
-        contentLabel.lineBreakMode = .byTruncatingTail
-        contentLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        // 간격을 위한 뷰 추가
+
+        // 간격을 위한 뷰 추가 (content - date)
         let spacer = UIView()
         spacer.translatesAutoresizingMaskIntoConstraints = false
         spacer.heightAnchor.constraint(equalToConstant: 10).isActive = true
-        
-        
-        dateLabel.font = UIFont.systemFont(ofSize: 15)
-        dateLabel.textColor = .white
-        dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        let stackViewContainer = UIView()
-        stackViewContainer.backgroundColor = .systemBrown
-        stackViewContainer.layer.cornerRadius = 10
-        stackViewContainer.translatesAutoresizingMaskIntoConstraints = false
         
         let stackView = UIStackView(arrangedSubviews: [hStackView, contentLabel, spacer, dateLabel])
         stackView.axis = .vertical
@@ -73,11 +99,16 @@ class CustomCell: UITableViewCell {
         ])
     }
     
+    // congifure
     func configure(item: Todo) {
         titleLabel.text = item.title
         contentLabel.text = item.content
+        
+        // isDone 상태 체크
         isDoneLabel.text = item.isDone ? "완료한 일" : "해야할 일"
         isDoneLabel.textColor = item.isDone ? .green : .red
+        
+        // Date String으로 변환
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         

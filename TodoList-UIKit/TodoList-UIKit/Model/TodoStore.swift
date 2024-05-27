@@ -1,9 +1,3 @@
-//
-//  TodoStore.swift
-//  TodoList-UIKit
-//
-//  Created by mac on 5/25/24.
-//
 
 import Foundation
 

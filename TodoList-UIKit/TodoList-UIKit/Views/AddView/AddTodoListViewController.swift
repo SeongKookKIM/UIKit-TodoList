@@ -19,10 +19,53 @@ class AddTodoListViewController: UIViewController, UITableViewDataSource, UIText
         return tableView
     }()
     
-    let todoTitle = UITextField()
-    let todoContent = UITextView()
-    let addButton = UIButton()
+
+    private lazy var todoTitle: UITextField = {
+        let todoTitle = UITextField()
+        todoTitle.placeholder = "제목을 적어주세요."
+        todoTitle.delegate = self
+        todoTitle.translatesAutoresizingMaskIntoConstraints = false
+        
+        return todoTitle
+    }()
     
+    private lazy var todoContent: UITextView = {
+        let todoContent = UITextView()
+        todoContent.delegate = self
+        todoContent.translatesAutoresizingMaskIntoConstraints = false
+        
+        return todoContent
+    }()
+    
+    private lazy var addButton: UIButton = {
+        let addButton = UIButton()
+        var config = UIButton.Configuration.filled()
+        config.title = "저장하기"
+        config.cornerStyle = .capsule
+        config.baseBackgroundColor = .systemBrown
+        addButton.configuration = config
+        addButton.isEnabled = false
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        addButton.addAction(UIAction{ [weak self] _ in
+            guard let self = self else { return }
+            
+            let newTodo = Todo(
+                id: UUID(),
+                title: self.todoTitle.text!,
+                content: self.todoContent.text!,
+                date: Date(),
+                isDone: false
+            )
+            // TodoList 저장
+            TodoStore.shared.addTodo(todo: newTodo)
+            
+            self.navigationController?.popViewController(animated: true)
+        }, for: .touchUpInside)
+        
+        return addButton
+    }()
+    
+    // tapGesture 생성
     lazy var tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapHanlder))
     
     
@@ -37,32 +80,6 @@ class AddTodoListViewController: UIViewController, UITableViewDataSource, UIText
         self.view.addSubview(containerView)
         
         containerView.addSubview(tableView)
-        
-        
-        var config = UIButton.Configuration.filled()
-        config.title = "저장하기"
-        config.cornerStyle = .capsule
-        config.baseBackgroundColor = .systemBrown
-        addButton.configuration = config
-        addButton.isEnabled = false
-        addButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        addButton.addAction(UIAction{ [weak self] _ in
-            guard let self = self else { return }
-            
-            let newTodo = Todo(
-                id: UUID(),
-                title: self.todoTitle.text!,
-                content: self.todoContent.text!,
-                date: Date(),
-                isDone: false
-            )
-            
-            TodoStore.shared.addTodo(todo: newTodo)
-            
-            self.navigationController?.popViewController(animated: true)
-        }, for: .touchUpInside)
         
         self.view.addSubview(addButton)
         
@@ -139,10 +156,6 @@ class AddTodoListViewController: UIViewController, UITableViewDataSource, UIText
         
         switch indexPath.section {
         case 0:
-            todoTitle.placeholder = "제목을 적어주세요."
-            todoTitle.delegate = self
-            todoTitle.translatesAutoresizingMaskIntoConstraints = false
-            
             cell.contentView.addSubview(todoTitle)
             
             NSLayoutConstraint.activate([
@@ -153,9 +166,6 @@ class AddTodoListViewController: UIViewController, UITableViewDataSource, UIText
             ])
             
         case 1:
-            todoContent.delegate = self
-            todoContent.translatesAutoresizingMaskIntoConstraints = false
-            
             cell.contentView.addSubview(todoContent)
             
             NSLayoutConstraint.activate([
@@ -172,10 +182,8 @@ class AddTodoListViewController: UIViewController, UITableViewDataSource, UIText
         
         return cell
     }
-    
-    
 
-    // 탭 핸들러
+    // Tap Hanlder
     @objc func tapHanlder(_ sender: UIView) {
         todoTitle.resignFirstResponder()
         todoContent.resignFirstResponder()

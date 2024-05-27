@@ -168,7 +168,7 @@ class TodoDetailViewController: UIViewController {
             saveBtn.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 30),
             saveBtn.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             saveBtn.heightAnchor.constraint(equalToConstant: 50),
-            saveBtn.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20) // 마지막 뷰의 bottomAnchor 제약 조건
+            saveBtn.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
         ])
     }
     

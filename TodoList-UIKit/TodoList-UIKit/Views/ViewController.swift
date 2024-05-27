@@ -1,32 +1,32 @@
 import UIKit
 
-struct TodoList {
-    let title: String
-    let content: String
-    let date: String
-}
-
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
 
-    // tableView를 클래스 속성으로 선언
-    let tableView = UITableView(frame: .zero, style: .plain)
+    // 테이블뷰 생성
+    private var tableView: UITableView = {
+       let tableView = UITableView(frame: .zero, style: .plain)
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(CustomCell.self, forCellReuseIdentifier: "cell")
+        
+        return tableView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.title = "TodoList"
         
-        // 테이블 뷰 초기 설정
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        // TableView
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(CustomCell.self, forCellReuseIdentifier: "cell")
-
         view.addSubview(tableView)
         
+        // UIBarButtonItem 생성
         let addButton = UIBarButtonItem(title: "추가하기", style: .done, target: self, action: #selector(addButtonTapped))
         addButton.tintColor = .systemBrown
         self.navigationItem.rightBarButtonItem = addButton
+        
         
         let safeArea = view.safeAreaLayoutGuide
         
@@ -38,9 +38,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         ])
     }
     
+    // 테이블 뷰를 리로드하여 새로운 데이터를 반영
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // 테이블 뷰를 리로드하여 새로운 데이터를 반영
         tableView.reloadData()
     }
     
