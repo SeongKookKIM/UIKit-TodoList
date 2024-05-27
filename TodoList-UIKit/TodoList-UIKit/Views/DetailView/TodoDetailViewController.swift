@@ -83,6 +83,11 @@ class TodoDetailViewController: UIViewController {
         
         self.view.backgroundColor = .white
         
+        
+        /*
+         Ruel: translatesAutoresizingMaskIntoConstraints 코드 설정 위치 통일 필요
+                ui setting에 대한 메서드를 따로 생성하여 분리하면 코드 가독성 향상 예상
+         */
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         contentView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -127,6 +132,31 @@ class TodoDetailViewController: UIViewController {
         contentView.addSubview(saveBtn)
         
         let safeArea = view.safeAreaLayoutGuide
+        
+        /*
+        Ruel: NSLayoutConstraint.activate의 경우 현재 모든 프로퍼티의 constraint를 셋팅해주고 있는데
+             각 프로퍼티별로 나누어서 activate해준다면 가독성이 더 향상될 것 같음
+         
+            ex)
+         
+         // scrollView Layout
+         NSLayoutConstraint.activate([
+             scrollView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+             scrollView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+             scrollView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+             scrollView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor
+         ])
+         
+         // contentView Layout
+         NSLayoutConstraint.activate([
+             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+         ])
+         ...
+         */
         
         NSLayoutConstraint.activate([
             
