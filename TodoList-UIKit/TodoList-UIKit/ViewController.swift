@@ -53,6 +53,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomCell
         
         let todoList = TodoStore.shared.getTodo(at: indexPath)
+        cell.selectionStyle = .none
         cell.configure(item: todoList)
         
         return cell

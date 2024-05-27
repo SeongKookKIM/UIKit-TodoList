@@ -42,7 +42,7 @@ struct Todo: Identifiable, Codable {
 class TodoStore {
     static let shared = TodoStore()
     private var todoList: [Todo] {
-         didSet {
+         didSet { // 속성의 값이 변경된 후에 호출
              UserDefaults.standard.saveTodoList(todoList)
          }
      }

@@ -10,7 +10,7 @@ import UIKit
 
 class AddTodoListViewController: UIViewController, UITableViewDataSource, UITextViewDelegate, UITextFieldDelegate  {
     
-    lazy var tableView: UITableView = {
+    private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: view.bounds, style: .insetGrouped)
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "addCell")
@@ -53,8 +53,8 @@ class AddTodoListViewController: UIViewController, UITableViewDataSource, UIText
             
             let newTodo = Todo(
                 id: UUID(),
-                title: self.todoTitle.text ?? "",
-                content: self.todoContent.text ?? "",
+                title: self.todoTitle.text!,
+                content: self.todoContent.text!,
                 date: Date(),
                 isDone: false
             )
