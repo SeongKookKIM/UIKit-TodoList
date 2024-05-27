@@ -122,6 +122,7 @@ class AddTodoListViewController: UIViewController, UITableViewDataSource, UIText
     
     // MARK: Methods
     func updateSaveButtonState() {
+        // todoTitle, todoContent 둘 다 입력 했다가 todoTitle을 모두 지워도 버튼이 활성화 되어있음
         guard let title = todoTitle.text, !title.isEmpty,
               let body = todoContent.text, !body.isEmpty else {
             addButton.isEnabled = false
