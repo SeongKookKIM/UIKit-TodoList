@@ -67,6 +67,7 @@ class CustomCell: UITableViewCell {
     
     // setUp 설정
     func setUp() {
+        //Ruel: selectionStyle = .none
         
         let hStackView = UIStackView(arrangedSubviews: [titleLabel, isDoneLabel])
         hStackView.axis = .horizontal

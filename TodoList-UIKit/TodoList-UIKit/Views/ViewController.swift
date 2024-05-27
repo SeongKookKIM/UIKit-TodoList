@@ -41,6 +41,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // 테이블 뷰를 리로드하여 새로운 데이터를 반영
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        /*
+         Ruel: viewWillAppear에서 tableView.reloadData()시 원치 않는 reload를 발생 시킬 수 있음.
+                navigation push 후 pop될때마다 reload 발생함
+                즉, 화면이 다시 보여질때마다 reload를 하게됨
+         
+         */
         tableView.reloadData()
     }
     
@@ -53,6 +60,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomCell
         
         let todoList = TodoStore.shared.getTodo(at: indexPath)
+        
+        /*
+         Ruel: selectionStyle의 경우 Cell에 대한 셋팅이기 때문에 CustomCell내부 Init or setup에서
+                동작시키는것이 더 깔끔할 것 같음
+        */
         cell.selectionStyle = .none
         cell.configure(item: todoList)
         
