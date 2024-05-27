@@ -33,6 +33,7 @@ struct Todo: Identifiable, Codable {
     var isDone: Bool
 }
 
+// ViewModel이나 별도로 파일을 만들어서 관리하면 좋을거 같아요
 class TodoStore {
     static let shared = TodoStore()
     private var todoList: [Todo] {
@@ -57,6 +58,7 @@ class TodoStore {
         todoList.remove(at: index)
     }
     
+    // IndexPath -> indexPath.row로 바로 접근해도 될거 같아요
     func getTodo(at: IndexPath) -> Todo {
         return todoList[at.row]
     }
