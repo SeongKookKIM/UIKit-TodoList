@@ -50,11 +50,6 @@ class CustomCell: UITableViewCell {
         return dateLabel
     }()
     
-
-
-
-    let toggleSwitch = UISwitch()
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUp()

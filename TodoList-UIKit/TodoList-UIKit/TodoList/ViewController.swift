@@ -11,22 +11,28 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         return tableView
     }()
+    
+    private var addButton: UIBarButtonItem = {
+        let addButton = UIBarButtonItem(title: "추가하기", style: .done, target: ViewController.self, action: #selector(addButtonTapped))
+        addButton.tintColor = .systemBrown
+        
+        return addButton
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUpUI()
+    }
+    
+    private func setUpUI() {
         navigationItem.title = "TodoList"
+        self.navigationItem.rightBarButtonItem = addButton
         
         // TableView
         tableView.dataSource = self
         tableView.delegate = self
         view.addSubview(tableView)
-        
-        // UIBarButtonItem 생성
-        let addButton = UIBarButtonItem(title: "추가하기", style: .done, target: self, action: #selector(addButtonTapped))
-        addButton.tintColor = .systemBrown
-        self.navigationItem.rightBarButtonItem = addButton
-        
         
         let safeArea = view.safeAreaLayoutGuide
         
@@ -36,6 +42,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             tableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
+        
     }
     
     // 테이블 뷰를 리로드하여 새로운 데이터를 반영
@@ -62,6 +69,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             TodoStore.shared.removeTodo(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
             
             tableView.reloadData()
         }
