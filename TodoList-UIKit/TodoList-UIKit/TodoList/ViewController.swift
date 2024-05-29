@@ -12,28 +12,29 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return tableView
     }()
     
-    private var addButton: UIBarButtonItem = {
-        let addButton = UIBarButtonItem(title: "추가하기", style: .done, target: ViewController.self, action: #selector(addButtonTapped))
-        addButton.tintColor = .systemBrown
-        
-        return addButton
-    }()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        let addButton = UIBarButtonItem(title: "추가하기", style: .done, target: self, action: #selector(addButtonTapped))
+        addButton.tintColor = .systemBrown
+        
+        self.navigationItem.rightBarButtonItem = addButton
         
         setUpUI()
     }
     
     private func setUpUI() {
         navigationItem.title = "TodoList"
-        self.navigationItem.rightBarButtonItem = addButton
-        
+
+
         // TableView
         tableView.dataSource = self
         tableView.delegate = self
         view.addSubview(tableView)
-        
+          
         let safeArea = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
